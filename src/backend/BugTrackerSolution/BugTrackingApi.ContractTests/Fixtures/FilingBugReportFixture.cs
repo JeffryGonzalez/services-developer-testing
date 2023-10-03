@@ -1,5 +1,4 @@
-﻿using BugTrackerApi.ContractTests.Fixtures;
-using BugTrackerApi.Services;
+﻿using BugTrackerApi.Services;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 
@@ -7,6 +6,7 @@ namespace BugTrackingApi.ContractTests.Fixtures;
 public class FilingBugReportFixture : BaseAlbaFixture
 {
     public static DateTimeOffset AssumedTime = new(new DateTime(1969, 4, 20, 23, 59, 59), TimeSpan.FromHours(-4));
+
     protected override void RegisterServices(IServiceCollection services)
     {
         var fakeClock = Substitute.For<ISystemTime>();
@@ -15,4 +15,5 @@ public class FilingBugReportFixture : BaseAlbaFixture
         services.AddSingleton<ISystemTime>(fakeClock);
 
     }
+
 }

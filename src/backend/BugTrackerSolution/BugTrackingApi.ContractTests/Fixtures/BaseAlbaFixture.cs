@@ -3,7 +3,7 @@ using Alba.Security;
 using Microsoft.Extensions.DependencyInjection;
 
 
-namespace BugTrackerApi.ContractTests.Fixtures;
+namespace BugTrackingApi.ContractTests.Fixtures;
 public abstract class BaseAlbaFixture : IAsyncLifetime
 {
 

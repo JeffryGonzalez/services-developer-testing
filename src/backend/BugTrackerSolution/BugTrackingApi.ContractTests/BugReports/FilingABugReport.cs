@@ -3,7 +3,9 @@ using BugTrackerApi.Models;
 using BugTrackingApi.ContractTests.Fixtures;
 
 namespace BugTrackingApi.ContractTests.BugReports;
-public class FilingABugReport : IClassFixture<FilingBugReportFixture>
+
+[Collection("FilingABugReport")]
+public class FilingABugReport
 {
 
     private readonly IAlbaHost _host;
