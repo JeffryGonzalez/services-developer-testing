@@ -36,6 +36,9 @@ builder.Services.AddSwaggerGen(config =>
 });
 
 builder.Services.AddSingleton<ISystemTime, SystemTime>();
+builder.Services.AddScoped<BugReportManager>();
+builder.Services.AddScoped<SoftwareCatalogManager>();
+builder.Services.AddScoped<SlugUtils.SlugGenerator>();
 builder.Services.AddAuthentication().AddJwtBearer();
 var app = builder.Build();
 

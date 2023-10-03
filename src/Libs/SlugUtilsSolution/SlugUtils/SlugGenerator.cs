@@ -6,11 +6,36 @@ public class SlugGenerator
 {
 
 
-    public string GenerateSlug(string input)
+    public async Task<string> GenerateSlugAsync(string input, Func<string, Task<bool>> uniqueCheckerAsync)
     {
         var config = new SlugHelperConfiguration();
 
         var slugger = new SlugHelper(config);
-        return slugger.GenerateSlug(input);
+        var attempt = slugger.GenerateSlug(input);
+        var isUnique = await uniqueCheckerAsync(attempt);
+        if (isUnique)
+        {
+            return attempt;
+        }
+        else
+        {
+            var letters = "abcdefghijklmnopqrstuvwxyz";
+            var idx = 0;
+            while (idx < letters.Length)
+            {
+                var retryAttempt = attempt + "-" + letters[idx];
+                isUnique = await uniqueCheckerAsync(retryAttempt);
+                if (isUnique)
+                {
+                    return retryAttempt;
+                }
+                else
+                {
+                    idx++;
+                }
+
+            }
+        }
+        return attempt + Guid.NewGuid();
     }
 }

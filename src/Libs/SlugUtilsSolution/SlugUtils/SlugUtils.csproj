@@ -4,6 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Title>Utilities for Generating Unique Slugs (Training)</Title>
   </PropertyGroup>
 
   <ItemGroup>

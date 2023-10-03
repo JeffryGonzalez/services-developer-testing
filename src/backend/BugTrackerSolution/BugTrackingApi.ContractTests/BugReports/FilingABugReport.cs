@@ -21,12 +21,12 @@ public class FilingABugReport
 
         var request = new BugReportCreateRequest
         {
-            Description = "Excel Goes Boom",
+            Description = "Tacos Are Good",
             Narrative = "A big long thing with steps to reproduce"
         };
         var expectedReponse = new BugReportCreateResponse
         {
-            Id = "excel-goes-boom", // Slug
+            Id = "tacos-are-good", // Slug
             User = "Steve",
             Issue = request,
             Status = IssueStatus.InTriage,
