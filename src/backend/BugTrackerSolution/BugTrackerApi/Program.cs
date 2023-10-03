@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<ISystemTime, SystemTime>();
-
+builder.Services.AddAuthentication().AddJwtBearer();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

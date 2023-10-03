@@ -27,7 +27,7 @@ public class FilingABugReport
         var expectedReponse = new BugReportCreateResponse
         {
             Id = "excel-goes-boom",
-            User = "Bob",
+            User = "Steve",
             Issue = request,
             Status = IssueStatus.InTriage,
             Software = "Excel",
