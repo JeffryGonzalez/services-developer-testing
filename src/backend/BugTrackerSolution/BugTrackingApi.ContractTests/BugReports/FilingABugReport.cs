@@ -30,8 +30,8 @@ public class FilingABugReport
             User = "Bob",
             Issue = request,
             Status = IssueStatus.InTriage,
-            Software = "Microsoft Excel",
-            Created = DateTime.UtcNow
+            Software = "Excel",
+            Created = FilingBugReportFixture.AssumedTime
         };
 
         // When (and some then)
