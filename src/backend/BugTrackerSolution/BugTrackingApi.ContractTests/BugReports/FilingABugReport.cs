@@ -26,7 +26,7 @@ public class FilingABugReport
         };
         var expectedReponse = new BugReportCreateResponse
         {
-            Id = "excel-goes-boom",
+            Id = "excel-goes-boom", // Slug
             User = "Steve",
             Issue = request,
             Status = IssueStatus.InTriage,
