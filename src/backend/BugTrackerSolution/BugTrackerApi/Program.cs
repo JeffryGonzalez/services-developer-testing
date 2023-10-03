@@ -1,4 +1,5 @@
 using BugTrackerApi.Services;
+using Marten;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,6 +41,15 @@ builder.Services.AddScoped<BugReportManager>();
 builder.Services.AddScoped<SoftwareCatalogManager>();
 builder.Services.AddScoped<SlugUtils.SlugGenerator>();
 builder.Services.AddAuthentication().AddJwtBearer();
+
+var connectionString = builder.Configuration.GetConnectionString("bugs") ?? throw new Exception("Need A Connection String");
+builder.Services.AddMarten(cfg =>
+{
+    cfg.Connection(connectionString);
+    // I will talk about and / or fix this later 
+    cfg.AutoCreateSchemaObjects = Weasel.Core.AutoCreate.All;
+}).UseLightweightSessions();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
