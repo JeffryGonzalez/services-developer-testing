@@ -11,13 +11,17 @@ public class BugReportManager
     private readonly ISystemTime _systemTime;
     private readonly SlugUtils.SlugGenerator _slugGenerator;
     private readonly IDocumentSession _documentSession;
+    private readonly IDesktopSupportHttpClient _desktopSupportHttpClient;
+    private readonly ILogger<BugReportManager> _logger;
 
-    public BugReportManager(SoftwareCatalogManager softwareCatalog, ISystemTime systemTime, SlugGenerator slugGenerator, IDocumentSession documentSession)
+    public BugReportManager(SoftwareCatalogManager softwareCatalog, ISystemTime systemTime, SlugGenerator slugGenerator, IDocumentSession documentSession, IDesktopSupportHttpClient desktopSupportHttpClient, ILogger<BugReportManager> logger)
     {
         _softwareCatalog = softwareCatalog;
         _systemTime = systemTime;
         _slugGenerator = slugGenerator;
         _documentSession = documentSession;
+        _desktopSupportHttpClient = desktopSupportHttpClient;
+        _logger = logger;
     }
 
 
@@ -50,7 +54,13 @@ public class BugReportManager
                 _documentSession.Insert(entityToSave);
                 await _documentSession.SaveChangesAsync();
                 // send a request to a remote API to tell them to assign this to a support person.
+                var apiResponse = await _desktopSupportHttpClient.SendSupportTicketAsync(new SupportTicketRequest
+                {
+                    Software = software,
+                    User = user
+                });
 
+                _logger.LogInformation($"Got a ticket of {apiResponse.TicketId} for the issue {report.Id}");
                 return report;
             }
 

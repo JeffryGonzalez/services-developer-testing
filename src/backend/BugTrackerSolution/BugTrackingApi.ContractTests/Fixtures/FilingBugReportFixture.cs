@@ -15,7 +15,6 @@ public class FilingBugReportFixture : BaseAlbaFixture
         _pgContainer = new PostgreSqlBuilder()
             .WithUsername("postgres")
             .WithPassword("password")
-
             .WithImage(PG_IMAGE).Build();
 
     }

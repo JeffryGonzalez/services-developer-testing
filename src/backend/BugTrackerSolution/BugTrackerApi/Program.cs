@@ -50,6 +50,12 @@ builder.Services.AddMarten(cfg =>
     cfg.AutoCreateSchemaObjects = Weasel.Core.AutoCreate.All;
 }).UseLightweightSessions();
 
+var desktopSupportUrl = builder.Configuration.GetValue<string>("desktop-support") ?? throw new Exception("Need a URL for Desktop Support");
+
+builder.Services.AddHttpClient<IDesktopSupportHttpClient, DesktopSupportHttpClient>(client =>
+{
+    client.BaseAddress = new Uri(desktopSupportUrl);
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
