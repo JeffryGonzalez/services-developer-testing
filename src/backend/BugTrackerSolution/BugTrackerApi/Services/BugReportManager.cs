@@ -63,7 +63,21 @@ public class BugReportManager
         }
 
     }
+
+    public async Task<OneOf<BugReportCreateResponse, BugReportNotFound>> GetBugReportByIdAsync(string id)
+    {
+        var savedReport = await _documentSession.Query<BugReportEntity>().Where(b => b.BugReport.Id == id).SingleOrDefaultAsync();
+        if (savedReport is not null)
+        {
+            return savedReport.BugReport;
+        }
+        else
+        {
+            return new BugReportNotFound();
+        }
+    }
 }
+
 
 
 public record SoftwareNotInCatalog();
@@ -73,3 +87,4 @@ public class BugReportEntity
     public Guid Id { get; set; }
     public BugReportCreateResponse BugReport { get; set; } = new();
 }
+public record BugReportNotFound();
