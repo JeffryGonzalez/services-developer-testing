@@ -51,7 +51,11 @@ builder.Services.AddMarten(cfg =>
 {
     cfg.Connection(connectionString);
     // I will talk about and / or fix this later 
-    cfg.AutoCreateSchemaObjects = Weasel.Core.AutoCreate.All;
+    if (builder.Environment.IsDevelopment())
+    {
+        cfg.AutoCreateSchemaObjects = Weasel.Core.AutoCreate.All;
+      //  throw new Exception("BLAMMO");
+    }
 }).UseLightweightSessions();
 
 var desktopSupportUrl = builder.Configuration.GetValue<string>("desktop-support") ?? throw new Exception("Need a URL for Desktop Support");

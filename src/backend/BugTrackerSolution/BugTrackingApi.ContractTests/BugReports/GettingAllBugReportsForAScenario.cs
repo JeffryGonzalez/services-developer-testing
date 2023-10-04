@@ -4,10 +4,10 @@ using BugTrackingApi.ContractTests.Fixtures;
 
 namespace BugTrackingApi.ContractTests.BugReports;
 
-[Collection("SeededDatabaseCollection")]
-public class GettingAllBugReportsForAScenario
+// [Collection("SeededDatabaseCollection")]
+public class GettingAllBugReportsForAScenario : IClassFixture<SeededDatabaseFixture>
 {
-    public readonly IAlbaHost _host;
+    private readonly IAlbaHost _host;
     public GettingAllBugReportsForAScenario(SeededDatabaseFixture fixture)
     {
         _host = fixture.AlbaHost;

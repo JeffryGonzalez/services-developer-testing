@@ -15,7 +15,8 @@ public abstract class BaseAlbaFixture : IAsyncLifetime
 
     public async Task InitializeAsync()
     {
-
+        Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "testing");
+        Environment.SetEnvironmentVariable("desktop-support", "http://api-test/");
         await Initializeables();
         AlbaHost = await Alba.AlbaHost.For<Program>(builder => builder.ConfigureServices(services => RegisterServices(services)), GetStub());
     }
