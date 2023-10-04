@@ -1,0 +1,9 @@
+
+POST http://localhost:1337/catalog/excel/bugs
+Content-Type: application/json
+
+
+{
+  "description": "Can't Add More Than 65000 Rows",
+  "narrative": "When I try to add way too much stuff, it breaks."
+}
