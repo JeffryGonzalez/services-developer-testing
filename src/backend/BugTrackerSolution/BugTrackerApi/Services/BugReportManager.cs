@@ -76,6 +76,31 @@ public class BugReportManager
             return new BugReportNotFound();
         }
     }
+
+    public async Task<IReadOnlyList<BugReportCreateResponse>?> GetBugsForSoftwareAsync(string software)
+    {
+        var isInCatalog = await _softwareCatalog.IsSofwareInOurCatalogAsync(software);
+        string softwareName = null;
+        if (isInCatalog.TryPickT0(out SoftwareEntity entity, out SoftwareNotInCatalog notFound))
+        {
+            if (notFound is not null)
+            {
+                return null;
+            }
+            else
+            {
+                softwareName = entity.Name;
+            }
+        }
+
+
+        var response = await _documentSession.Query<BugReportEntity>()
+            .Where(b => b.BugReport.Software == softwareName)
+            .Select(b => b.BugReport)
+            .ToListAsync();
+        return response;
+
+    }
 }
 
 

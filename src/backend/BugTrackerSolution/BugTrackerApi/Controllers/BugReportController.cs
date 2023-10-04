@@ -42,5 +42,21 @@ public class BugReportController : ControllerBase
             );
     }
 
+    [Authorize]
+    [HttpGet("/catalog/{software}/bugs")]
+    public async Task<ActionResult> GetTheBugsForAPieceOfSoftware([FromRoute] string software)
+    {
+        var response = await _bugManager.GetBugsForSoftwareAsync(software);
+        if (response is not null)
+        {
+            return Ok(response);
+        }
+        else
+        {
+            return NotFound();
+        }
+
+    }
+
 
 }
