@@ -19,7 +19,7 @@ public class FilingBugReportFixture : BaseAlbaFixture
 
     }
 
-    protected override async Task? Initializeables()
+    protected override async Task Initializeables()
     {
         await _pgContainer.StartAsync();
         // Need to tell it to use THIS container instead of the one in our appsetting.development.json
@@ -27,7 +27,7 @@ public class FilingBugReportFixture : BaseAlbaFixture
 
     }
 
-    protected override async Task? Disposables()
+    protected override async Task Disposables()
     {
         await _pgContainer.DisposeAsync().AsTask();
         Environment.SetEnvironmentVariable("ConnectionStrings__bugs", null);
