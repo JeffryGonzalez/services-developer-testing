@@ -16,6 +16,7 @@ public class SeededDatabaseFixture : BaseAlbaFixture
         _container = new ContainerBuilder()
 
           .WithEnvironment("PGDATA", "/pgdata")
+          .WithPortBinding("5432", "5432")
           .WithImage(PG_IMAGE).Build();
 
     }
@@ -24,10 +25,8 @@ public class SeededDatabaseFixture : BaseAlbaFixture
     {
         await _container.StartAsync();
         // Need to tell it to use THIS container instead of the one in our appsetting.development.json
-        //Environment.SetEnvironmentVariable("ConnectionStrings__bugs", _pgContainer.GetConnectionString());
-
+        //Environment.SetEnvironmentVariable("ConnectionStrings__bugs", "PORT = 5432; HOST = localhost; DATABASE = postgres; PASSWORD = password; USER ID = postgres);
     }
-
     protected override async Task Disposables()
     {
         await _container.DisposeAsync().AsTask();

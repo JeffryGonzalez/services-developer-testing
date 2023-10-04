@@ -3,6 +3,7 @@ using BugTrackerApi.Services;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using Testcontainers.PostgreSql;
+using WireMock.Server;
 
 namespace BugTrackingApi.ContractTests.Fixtures;
 public class FilingBugReportFixture : BaseAlbaFixture
@@ -10,6 +11,7 @@ public class FilingBugReportFixture : BaseAlbaFixture
     public static DateTimeOffset AssumedTime = new(new DateTime(1969, 4, 20, 23, 59, 59), TimeSpan.FromHours(-4));
     private readonly string PG_IMAGE = "postgres:15.2-bullseye";
     private readonly PostgreSqlContainer _pgContainer;
+    public WireMockServer MockServer = null!;
     public FilingBugReportFixture()
     {
         _pgContainer = new PostgreSqlBuilder()
@@ -21,6 +23,7 @@ public class FilingBugReportFixture : BaseAlbaFixture
 
     protected override async Task Initializeables()
     {
+        MockServer = WireMockServer.Start(1349);
         await _pgContainer.StartAsync();
         // Need to tell it to use THIS container instead of the one in our appsetting.development.json
         Environment.SetEnvironmentVariable("ConnectionStrings__bugs", _pgContainer.GetConnectionString());
@@ -29,6 +32,8 @@ public class FilingBugReportFixture : BaseAlbaFixture
 
     protected override async Task Disposables()
     {
+        MockServer.Reset();
+        MockServer.Stop();
         await _pgContainer.DisposeAsync().AsTask();
         Environment.SetEnvironmentVariable("ConnectionStrings__bugs", null);
         // Use whatever database library to delete whatever was created by this "collection" of tests.
