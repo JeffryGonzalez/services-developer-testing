@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BugTrackerApi.Controllers;
 
+[ApiController]
 public class BugReportController : ControllerBase
 {
 

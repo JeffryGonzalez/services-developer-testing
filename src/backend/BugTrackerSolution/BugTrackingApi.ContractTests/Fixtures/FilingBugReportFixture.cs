@@ -31,6 +31,8 @@ public class FilingBugReportFixture : BaseAlbaFixture
     {
         await _pgContainer.DisposeAsync().AsTask();
         Environment.SetEnvironmentVariable("ConnectionStrings__bugs", null);
+        // Use whatever database library to delete whatever was created by this "collection" of tests.
+
     }
 
     protected override void RegisterServices(IServiceCollection services)

@@ -1,9 +1,9 @@
 
 POST http://localhost:1337/catalog/excel/bugs
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IklUVVN0dWRlbnQiLCJzdWIiOiJJVFVTdHVkZW50IiwianRpIjoiZDU2NmQyMWIiLCJhdWQiOlsiaHR0cDovL2xvY2FsaG9zdDoyMDM2OSIsImh0dHBzOi8vbG9jYWxob3N0OjAiLCJodHRwOi8vbG9jYWxob3N0OjEzMzciXSwibmJmIjoxNjk2NDM1Njc1LCJleHAiOjE3MDQzODQ0NzUsImlhdCI6MTY5NjQzNTY3NiwiaXNzIjoiZG90bmV0LXVzZXItand0cyJ9.5h6ERYjGi9chHOoX19ka61an-XNoaH87cGdbeawgZ5E
 
 
 {
-  "description": "Can't Add More Than 65000 Rows",
-  "narrative": "When I try to add way too much stuff, it breaks."
+  "description": "dog"
 }
