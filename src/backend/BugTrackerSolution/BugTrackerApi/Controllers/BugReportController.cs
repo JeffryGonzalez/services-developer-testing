@@ -47,14 +47,10 @@ public class BugReportController : ControllerBase
     public async Task<ActionResult> GetTheBugsForAPieceOfSoftware([FromRoute] string software)
     {
         var response = await _bugManager.GetBugsForSoftwareAsync(software);
-        if (response is not null)
-        {
-            return Ok(response);
-        }
-        else
-        {
-            return NotFound();
-        }
+        return response.Match<ActionResult>(
+            bugs => Ok(bugs.data),
+            _ => NotFound()
+            );
 
     }
 

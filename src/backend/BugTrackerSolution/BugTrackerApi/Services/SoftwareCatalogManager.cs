@@ -4,8 +4,7 @@ namespace BugTrackerApi.Services;
 
 public class SoftwareCatalogManager
 {
-
-    public async Task<OneOf<SoftwareEntity, SoftwareNotInCatalog>> IsSofwareInOurCatalogAsync(string software)
+    public async  Task<SoftwareEntityOrNotInCatalog> IsSoftwareInCatalogAsync(string software)
     {
         var supportedSoftware = new List<SoftwareEntity>()
         {
@@ -25,8 +24,8 @@ public class SoftwareCatalogManager
         {
             return softwareEntity;
         }
-
     }
+
 }
 
 
@@ -36,3 +35,8 @@ public record SoftwareEntity
     public string Name { get; set; } = string.Empty;
 }
 
+[GenerateOneOf]
+public partial class SoftwareEntityOrNotInCatalog : OneOfBase<SoftwareEntity, SoftwareNotInCatalog>
+{
+ 
+}
