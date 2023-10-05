@@ -27,9 +27,11 @@ public class GettingAllBugReportsForAScenario : IClassFixture<SeededDatabaseFixt
 
         Assert.NotNull(data);
 
-        // TODO: Figure this out. Assert.Equal(3, data.Count);
+        Assert.Equal(3, data.Count);
 
+        var third = data.Where(d => d.Id == "when-i-sum-up-a-column-it-shows-in-the-total").SingleOrDefault();
 
+        Assert.NotNull(third);
         // what are you going to look at?
 
     }

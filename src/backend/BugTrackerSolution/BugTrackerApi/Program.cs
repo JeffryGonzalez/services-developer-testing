@@ -1,6 +1,9 @@
 using BugTrackerApi.Services;
+
 using Marten;
+
 using Microsoft.OpenApi.Models;
+
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -50,12 +53,9 @@ var connectionString = builder.Configuration.GetConnectionString("bugs") ?? thro
 builder.Services.AddMarten(cfg =>
 {
     cfg.Connection(connectionString);
-    // I will talk about and / or fix this later 
-    if (builder.Environment.IsDevelopment())
-    {
-        cfg.AutoCreateSchemaObjects = Weasel.Core.AutoCreate.All;
-      //  throw new Exception("BLAMMO");
-    }
+
+    cfg.AutoCreateSchemaObjects = Weasel.Core.AutoCreate.All;
+
 }).UseLightweightSessions();
 
 var desktopSupportUrl = builder.Configuration.GetValue<string>("desktop-support") ?? throw new Exception("Need a URL for Desktop Support");
