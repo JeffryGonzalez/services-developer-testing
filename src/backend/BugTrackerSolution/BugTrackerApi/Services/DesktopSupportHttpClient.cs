@@ -34,14 +34,3 @@ public class DesktopSupportHttpClient : IDesktopSupportHttpClient
 }
 
 
-public record SupportTicketRequest
-{
-    public string Software { get; set; } = string.Empty;
-    public string User { get; set; } = string.Empty;
-}
-
-public record SupportTicketResponse
-{
-    public Guid TicketId { get; set; }
-    public SupportTicketRequest Request { get; set; } = new();
-}

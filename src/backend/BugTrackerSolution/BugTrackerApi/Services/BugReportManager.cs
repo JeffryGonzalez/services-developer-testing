@@ -115,13 +115,3 @@ public class BugReportManager
 
 
 
-public record SoftwareNotInCatalog();
-
-public class BugReportEntity
-{
-    public Guid Id { get; set; }
-    public BugReportCreateResponse BugReport { get; set; } = new();
-}
-public record BugReportNotFound();
-
-public record BugReportList(IReadOnlyList<BugReportCreateResponse> data);

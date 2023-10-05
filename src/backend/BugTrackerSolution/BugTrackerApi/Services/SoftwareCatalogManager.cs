@@ -28,15 +28,3 @@ public class SoftwareCatalogManager
 
 }
 
-
-public record SoftwareEntity
-{
-    public string Id { get; set; } = string.Empty;
-    public string Name { get; set; } = string.Empty;
-}
-
-[GenerateOneOf]
-public partial class SoftwareEntityOrNotInCatalog : OneOfBase<SoftwareEntity, SoftwareNotInCatalog>
-{
- 
-}
