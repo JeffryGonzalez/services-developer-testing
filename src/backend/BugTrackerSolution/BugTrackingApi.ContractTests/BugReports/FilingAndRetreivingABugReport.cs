@@ -12,39 +12,20 @@ namespace BugTrackingApi.ContractTests.BugReports;
 public class FilingAndRetreivingABugReport
 {
     private readonly IAlbaHost _host;
-    private readonly WireMockServer _mockServer;
+ 
 
     public FilingAndRetreivingABugReport(FilingBugReportFixture fixture)
     {
+        fixture.AddDummyDesktopSupportStub();
         _host = fixture.AlbaHost;
-        _mockServer = fixture.MockServer;
+
     }
 
     [Fact]
     public async Task AddingAndRetrievingABugReort()
     {
         // Given 
-        var expectedTicketId = Guid.NewGuid();
-        var messageToApi = new SupportTicketRequest
-        {
-            Software = "excel",
-            User = "Steve"
-        };
-        var messageToApiJson = """
-            {
-                "software": "excel",
-                "user": "Steve"
-            }
-
-            """;
-        _mockServer.Given(Request.Create().WithPath("/support-tickets"))
-            .RespondWith(Response.Create()
-                .WithStatusCode(200)
-                .WithBodyAsJson(new SupportTicketResponse()
-                {
-                    TicketId = expectedTicketId,
-                    Request = messageToApi
-                }));
+      
         var request = new BugReportCreateRequest
         {
             Description = "spell checker broken",

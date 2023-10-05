@@ -1,7 +1,13 @@
 ﻿using Alba;
 using BugTrackerApi.Models;
+using BugTrackerApi.Services;
+
 using BugTrackingApi.ContractTests.Fixtures;
+
+using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
+using NSubstitute;
+using NSubstitute.ReceivedExtensions;
 
 namespace BugTrackingApi.ContractTests.BugReports;
 
@@ -10,8 +16,11 @@ public class FilingABugReport
 {
 
     private readonly IAlbaHost _host;
+    private readonly ILogger<BugReportManager>? _logger;
     public FilingABugReport(FilingBugReportFixture fixture)
     {
+        fixture.AddDummyDesktopSupportStub();
+        _logger = fixture.BugReportLogger;
         _host = fixture.AlbaHost;
     }
     [Theory]
@@ -36,6 +45,11 @@ public class FilingABugReport
         var header = response.Context.Response.Headers.Location.First();
         var expectedHeader = $"http://localhost/catalog/{software}/bugs/{actualResponse.Id}";
         Assert.Equal(expectedHeader, header);
+
+        Assert.NotNull(_logger);
+    
+        _logger.Received().LogInformation($"Got a ticket of 38cba817-d6bc-463d-a4c8-c789dc8e72bc for the issue {actualResponse.Id}");
+
     }
 
     public static IEnumerable<object[]> GetSamplesForTheory()

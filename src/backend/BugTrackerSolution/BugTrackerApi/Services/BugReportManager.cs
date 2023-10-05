@@ -56,13 +56,13 @@ public class BugReportManager
                 _documentSession.Insert(entityToSave);
                 await _documentSession.SaveChangesAsync();
                 // send a request to a remote API to tell them to assign this to a support person.
-                //var apiResponse = await _desktopSupportHttpClient.SendSupportTicketAsync(new SupportTicketRequest
-                //{
-                //    Software = software,
-                //    User = user
-                //});
+                var apiResponse = await _desktopSupportHttpClient.SendSupportTicketAsync(new SupportTicketRequest
+                {
+                    Software = software,
+                    User = user
+                });
 
-                //_logger.LogInformation($"Got a ticket of {apiResponse.TicketId} for the issue {report.Id}");
+                _logger.LogInformation($"Got a ticket of {apiResponse.TicketId} for the issue {report.Id}");
                 return report;
             }
 
